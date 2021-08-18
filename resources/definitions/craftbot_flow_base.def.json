@@ -1,0 +1,118 @@
+{
+    "version":      2,
+    "name":         "CraftBot FLOW Base Printer",
+    "inherits":     "fdmprinter",
+
+    "metadata": {
+        "author":                          "mattico",
+        "visible":                         false,
+        "manufacturer":                    "CraftUnique",
+        "file_formats":                    "text/x-gcode",
+        "has_machine_quality":             false,
+        "has_materials":                   false,
+        "has_variants":                    false,
+
+        "machine_extruder_trains": {
+            "0": "craftbot_flow_base_extruder_0",
+            "1": "craftbot_flow_base_extruder_1"
+        }
+    },
+
+    "overrides": {
+        "machine_extruder_count":          { "default_value": 1, "maximum_value": "2" },
+        "machine_heated_bed":              { "default_value": true },
+        "machine_center_is_zero":          { "default_value": false },
+        "machine_gcode_flavor":            { "default_value": "Marlin" },
+        "machine_start_gcode":             { "default_value": ";---------------------------------------\n;CraftBot FLOW start script\n;---------------------------------------\nG90 ;absolute positioning\nM107 ;start with the fan off\nG28 X Y ;Home X Y\nG28 Z ;Home Z\n;---------------------------------------"},
+        "machine_end_gcode":               { "default_value": ";---------------------------------------\n;CraftBot FLOW end script\n;---------------------------------------\nG91 ;relative positioning\nG0 E-1 F2400 ;retract 1mm\nG0 Z5 F2400 ; lift Z 5mm\nG90 ;absolute positioning\nG28 X Y ; home horizontally\nM84 ;steppers off\n" },
+        "machine_shape":                   { "default_value": "rectangular" },
+
+        "machine_nozzle_head_distance":    { "default_value": 2 },
+        "machine_heat_zone_length":        { "default_value": 15 },
+        "gantry_height":                   { "default_value": 35 },
+        "machine_head_with_fans_polygon":  { "default_value": [[-32, 30], [-32, -30], [30, 30], [30, -30]] },
+
+        "machine_max_feedrate_x" :         { "default_value": 200 },
+        "machine_max_feedrate_y" :         { "default_value": 200 },
+        "machine_max_feedrate_z" :         { "default_value": 60 },
+        "machine_max_feedrate_e" :         { "default_value": 120 },
+
+        "machine_max_acceleration_x":      { "default_value": 800 },
+        "machine_max_acceleration_y":      { "default_value": 800 },
+        "machine_max_acceleration_z":      { "default_value": 400 },
+        "machine_max_acceleration_e":      { "default_value": 12000 },
+
+        "machine_max_jerk_xy":             { "value": 20 },
+        "machine_max_jerk_z":              { "value": 1 },
+        "machine_max_jerk_e":              { "value": 5 },
+
+        "speed_print" :                    { "default_value": 120 },
+        "speed_topbottom":                 { "value": "speed_print * 0.90" },
+        "speed_wall_0":                    { "value": "35 if speed_print > 35 else speed_print" },
+        "speed_layer_0":                   { "value": "speed_print / 2" }, 
+
+        "speed_travel":                    { "value": "200" },
+        "speed_travel_layer_0":            { "value": "speed_travel * 0.70" },
+        "speed_z_hop":                     { "value": "machine_max_feedrate_z" },
+
+        "acceleration_enabled":            { "value": "True" },
+        "acceleration_travel" :            { "value": "machine_max_acceleration_x" },
+        "acceleration_print":              { "value": "machine_max_acceleration_x" },
+        "acceleration_wall":               { "value": "acceleration_print * 0.5" },
+        "acceleration_wall_0":             { "value": "acceleration_wall * 0.5" },
+        "acceleration_topbottom":          { "value": "acceleration_wall_0" },
+        "acceleration_layer_0":            { "value": "acceleration_wall_0" },
+        "acceleration_prime_tower":        { "value": "acceleration_wall" },
+        "acceleration_support":            { "value": "acceleration_wall" },
+        "acceleration_support_interface":  { "value": "acceleration_wall_0" },
+
+        "jerk_enabled":                    { "value": "True" },
+        "jerk_layer_0": 				   { "value": "5" },
+        "jerk_prime_tower": 			   { "value": "jerk_print" },
+        "jerk_print": 					   { "value": "15" },
+        "jerk_support": 				   { "value": "jerk_print" },
+        "jerk_support_interface": 		   { "value": "jerk_print" },
+        "jerk_topbottom": 				   { "value": "jerk_print" },
+        "jerk_wall": 					   { "value": "jerk_print" },
+        "jerk_wall_0": 					   { "value": "jerk_print" },
+        "jerk_travel":					   { "value": "jerk_print" },
+        "jerk_travel_layer_0":			   { "value": "jerk_layer_0" },
+
+        "retraction_hop_enabled":            { "default_value": true },
+        "retraction_hop":                    { "default_value": 1.0 },
+        "retraction_amount" :                { "default_value": 1.0 },
+        "retraction_speed" :                 { "default_value": 60 },
+        "retraction_combing" :               { "default_value": "noskin" },
+        "travel_avoid_distance":             { "value": "1" },
+        "travel_avoid_supports":             { "value": "True" },
+        "retraction_hop_only_when_collides": { "value": "1" },
+
+        "switch_extruder_retraction_amount": { "value": 1},
+        "switch_extruder_retraction_speeds": { "default_value": 60 },
+
+        "top_bottom_thickness":            { "default_value": 0.8 },
+        "roofing_layer_count":             { "value": "1" },
+        "roofing_line_width":              { "value": "line_width * 0.75" },
+        "z_seam_corner":                   { "value": "'z_seam_corner_weighted'" },
+
+        "infill_sparse_density":           { "default_value": 20 },
+        "infill_pattern":                  { "value": "'lines'" },
+        "infill_before_walls":             { "default_value": false },
+
+        "support_z_distance":              { "value": "layer_height" },
+        "support_bottom_distance":         { "value": "layer_height" },
+        "support_use_towers":              { "default_value": false },
+        "support_bottom_enable":           { "value": false },
+        "support_wall_count":              { "value": "1" },
+
+        "skirt_brim_speed":                { "value": "speed_layer_0" },
+        "skirt_line_count":                { "default_value": 3 },
+        "skirt_brim_minimal_length":       { "default_value": 150 },
+        "brim_width":                      { "value": "3" },
+
+        "prime_tower_size":                { "value": "math.sqrt(extruders_enabled_count * prime_tower_min_volume / layer_height / math.pi) * 2"},
+        "prime_tower_brim_enable":         { "value": false },
+        "prime_tower_position_x":          { "value": "prime_tower_size / 2" },
+        "prime_tower_position_y":          { "value": "machine_depth / 2 - prime_tower_size - max(extruderValue(adhesion_extruder_nr, 'brim_width') * extruderValue(adhesion_extruder_nr, 'initial_layer_line_width_factor') / 100 if adhesion_type == 'brim' or (prime_tower_brim_enable and adhesion_type != 'raft') else (extruderValue(adhesion_extruder_nr, 'raft_margin') if adhesion_type == 'raft' else (extruderValue(adhesion_extruder_nr, 'skirt_gap') if adhesion_type == 'skirt' else 0)), max(extruderValues('travel_avoid_distance'))) - max(extruderValues('support_offset')) - sum(extruderValues('skirt_brim_line_width')) * extruderValue(adhesion_extruder_nr, 'initial_layer_line_width_factor') / 100 - (resolveOrValue('draft_shield_dist') if resolveOrValue('draft_shield_enabled') else 0) - 1" }
+    }
+}
