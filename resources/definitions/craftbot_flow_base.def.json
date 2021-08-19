@@ -21,8 +21,8 @@
         "machine_heated_bed":              { "default_value": true },
         "machine_center_is_zero":          { "default_value": false },
         "machine_gcode_flavor":            { "default_value": "CraftBot" },
-        "machine_start_gcode":             { "default_value": ";---------------------------------------\n;CraftBot FLOW start script\n;---------------------------------------\nG90 ;absolute positioning\nM107 ;start with the fan off\nG28 X Y ;Home X Y\nG28 Z ;Home Z\n;---------------------------------------"},
-        "machine_end_gcode":               { "default_value": ";---------------------------------------\n;CraftBot FLOW end script\n;---------------------------------------\nG91 ;relative positioning\nG0 E-1 F2400 ;retract 1mm\nG0 Z5 F2400 ; lift Z 5mm\nG90 ;absolute positioning\nG28 X Y ; home horizontally\nM84 ;steppers off\n" },
+        "machine_start_gcode":             { "default_value": ";---------------------------------------\n;CraftBot FLOW start script\n;---------------------------------------\nG28; Home all axes\nG21; mm\nG90; abs\nG92 E0 ;reset extr\nG1 E20 F600; startup extrude 20mm\nG21; mm\nG90; abs\nG92 E0 ;reset extr\n;---------------------------------------"},
+        "machine_end_gcode":               { "default_value": ";---------------------------------------\n;CraftBot FLOW end script\n;---------------------------------------\nG101 Z10; Lower the bed 10mm\nG28 X; Home X\nG1 Y200; Move the Y back away from the camera\nM104 S0; turn off extruder\nM140 S0; turn off bed\nM84; disable motors\n" },
         "machine_shape":                   { "default_value": "rectangular" },
 
         "machine_nozzle_head_distance":    { "default_value": 2 },
