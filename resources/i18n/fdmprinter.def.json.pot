@@ -427,6 +427,11 @@ msgid "Repetier"
 msgstr ""
 
 #: fdmprinter.def.json
+msgctxt "machine_gcode_flavor option CraftBot"
+msgid "CraftBot"
+msgstr ""
+
+#: fdmprinter.def.json
 msgctxt "machine_firmware_retract label"
 msgid "Firmware Retraction"
 msgstr ""

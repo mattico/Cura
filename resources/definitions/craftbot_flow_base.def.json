@@ -22,7 +22,7 @@
         "machine_extruder_count":          { "default_value": 1, "maximum_value": "2" },
         "machine_heated_bed":              { "default_value": true },
         "machine_center_is_zero":          { "default_value": false },
-        "machine_gcode_flavor":            { "default_value": "Marlin" },
+        "machine_gcode_flavor":            { "default_value": "CraftBot" },
         "machine_start_gcode":             { "default_value": ";---------------------------------------\n;CraftBot FLOW start script\n;---------------------------------------\nG90 ;absolute positioning\nM107 ;start with the fan off\nG28 X Y ;Home X Y\nG28 Z ;Home Z\n;---------------------------------------"},
         "machine_end_gcode":               { "default_value": ";---------------------------------------\n;CraftBot FLOW end script\n;---------------------------------------\nG91 ;relative positioning\nG0 E-1 F2400 ;retract 1mm\nG0 Z5 F2400 ; lift Z 5mm\nG90 ;absolute positioning\nG28 X Y ; home horizontally\nM84 ;steppers off\n" },
         "machine_shape":                   { "default_value": "rectangular" },

@@ -54,9 +54,9 @@ class PauseAtHeight(Script):
                     "label": "Method",
                     "description": "The method or gcode command to use for pausing.",
                     "type": "enum",
-                    "options": {"marlin": "Marlin (M0)", "griffin": "Griffin (M0, firmware retract)", "bq": "BQ (M25)", "reprap": "RepRap (M226)", "repetier": "Repetier/OctoPrint (@pause)"},
+                    "options": {"marlin": "Marlin (M0)", "griffin": "Griffin (M0, firmware retract)", "bq": "BQ (M25)", "reprap": "RepRap (M226)", "repetier": "Repetier/OctoPrint (@pause)", "craftbot": "CraftBot (G197)"},
                     "default_value": "marlin",
-                    "value": "\\\"griffin\\\" if machine_gcode_flavor==\\\"Griffin\\\" else \\\"reprap\\\" if machine_gcode_flavor==\\\"RepRap (RepRap)\\\" else \\\"repetier\\\" if machine_gcode_flavor==\\\"Repetier\\\" else \\\"bq\\\" if \\\"BQ\\\" in machine_name or \\\"Flying Bear Ghost 4S\\\" in machine_name  else \\\"marlin\\\""
+                    "value": "\\\"craftbot\\\" if machine_gcode_flavor==\\\"CraftBot\\\" else \\\"griffin\\\" if machine_gcode_flavor==\\\"Griffin\\\" else \\\"reprap\\\" if machine_gcode_flavor==\\\"RepRap (RepRap)\\\" else \\\"repetier\\\" if machine_gcode_flavor==\\\"Repetier\\\" else \\\"bq\\\" if \\\"BQ\\\" in machine_name or \\\"Flying Bear Ghost 4S\\\" in machine_name  else \\\"marlin\\\""
                 },
                 "disarm_timeout":
                 {
@@ -75,7 +75,7 @@ class PauseAtHeight(Script):
                     "description": "Instruct the head to move to a safe location when pausing. Leave this unchecked if your printer handles parking for you.",
                     "type": "bool",
                     "default_value": true,
-                    "enabled": "pause_method != \\\"griffin\\\""
+                    "enabled": "pause_method not in [\\\"griffin\\\", \\\"craftbot\\\"]"
                 },
                 "head_park_x":
                 {
@@ -84,7 +84,7 @@ class PauseAtHeight(Script):
                     "unit": "mm",
                     "type": "float",
                     "default_value": 190,
-                    "enabled": "head_park_enabled and pause_method != \\\"griffin\\\""
+                    "enabled": "head_park_enabled and pause_method not in [\\\"griffin\\\", \\\"craftbot\\\"]"
                 },
                 "head_park_y":
                 {
@@ -93,7 +93,7 @@ class PauseAtHeight(Script):
                     "unit": "mm",
                     "type": "float",
                     "default_value": 190,
-                    "enabled": "head_park_enabled and pause_method != \\\"griffin\\\""
+                    "enabled": "head_park_enabled and pause_method not in [\\\"griffin\\\", \\\"craftbot\\\"]"
                 },
                 "head_move_z":
                 {
@@ -111,7 +111,7 @@ class PauseAtHeight(Script):
                     "unit": "mm",
                     "type": "float",
                     "default_value": 0,
-                    "enabled": "pause_method != \\\"griffin\\\""
+                    "enabled": "pause_method not in [\\\"griffin\\\", \\\"craftbot\\\"]"
                 },
                 "retraction_speed":
                 {
@@ -120,7 +120,7 @@ class PauseAtHeight(Script):
                     "unit": "mm/s",
                     "type": "float",
                     "default_value": 25,
-                    "enabled": "pause_method not in [\\\"griffin\\\", \\\"repetier\\\"]"
+                    "enabled": "pause_method not in [\\\"griffin\\\", \\\"repetier\\\", \\\"craftbot\\\"]"
                 },
                 "extrude_amount":
                 {
@@ -129,7 +129,7 @@ class PauseAtHeight(Script):
                     "unit": "mm",
                     "type": "float",
                     "default_value": 0,
-                    "enabled": "pause_method != \\\"griffin\\\""
+                    "enabled": "pause_method not in [\\\"griffin\\\", \\\"craftbot\\\"]"
                 },
                 "extrude_speed":
                 {
@@ -138,7 +138,7 @@ class PauseAtHeight(Script):
                     "unit": "mm/s",
                     "type": "float",
                     "default_value": 3.3333,
-                    "enabled": "pause_method not in [\\\"griffin\\\", \\\"repetier\\\"]"
+                    "enabled": "pause_method not in [\\\"griffin\\\", \\\"repetier\\\", \\\"craftbot\\\"]"
                 },
                 "redo_layer":
                 {
@@ -162,7 +162,7 @@ class PauseAtHeight(Script):
                     "description": "Text that should appear on the display while paused. If left empty, there will not be any message.",
                     "type": "str",
                     "default_value": "",
-                    "enabled": "pause_method != \\\"repetier\\\""
+                    "enabled": "pause_method not in [\\\"griffin\\\", \\\"craftbot\\\"]"
                 },
                 "machine_name":
                 {
@@ -187,7 +187,8 @@ class PauseAtHeight(Script):
                         "Makerbot": "Makerbot",
                         "BFB": "Bits from Bytes",
                         "MACH3": "Mach3",
-                        "Repetier": "Repetier"
+                        "Repetier": "Repetier",
+                        "CraftBot": "CraftBot"
                     },
                     "default_value": "RepRap (Marlin/Sprinter)",
                     "enabled": false
@@ -265,6 +266,7 @@ class PauseAtHeight(Script):
         pause_command = {
             "marlin": self.putValue(M = 0),
             "griffin": self.putValue(M = 0),
+            "craftbot": self.putValue(G = 197),
             "bq": self.putValue(M = 25),
             "reprap": self.putValue(M = 226),
             "repetier": self.putValue("@pause now change filament and press continue printing")
@@ -408,6 +410,11 @@ class PauseAtHeight(Script):
                     #Disable the E steppers
                     prepend_gcode += self.putValue(M = 84, E = 0) + "\n"
 
+                elif pause_method == "craftbot":
+                    if control_temperatures:
+                        # Set extruder standby temperature
+                        prepend_gcode += self.putValue(M = 104, S = standby_temperature) + " ; standby temperature\n"
+
                 elif pause_method != "griffin":
                     # Retraction
                     prepend_gcode += self.putValue(M = 83) + " ; switch to relative E values for any needed retraction\n"
@@ -491,6 +498,11 @@ class PauseAtHeight(Script):
 
                     # reset extrude value to pre pause value
                     prepend_gcode += self.putValue(G = 92, E = current_e) + "\n"
+
+                elif pause_method == "craftbot":
+                    if control_temperatures:
+                        # Set extruder resume temperature
+                        prepend_gcode += self.putValue(M = 109, S = int(target_temperature.get(current_t, 0))) + " ; resume temperature\n"
 
                 elif pause_method != "griffin":
                     if control_temperatures:
