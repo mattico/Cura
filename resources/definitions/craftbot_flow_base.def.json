@@ -42,9 +42,10 @@
         "machine_max_acceleration_z":      { "default_value": 400 },
         "machine_max_acceleration_e":      { "default_value": 12000 },
 
-        "machine_max_jerk_xy":             { "value": 20 },
-        "machine_max_jerk_z":              { "value": 1 },
-        "machine_max_jerk_e":              { "value": 5 },
+        "__machine_jerk_comment": "CraftWare Pro has Jerk=20 but doesn't specify XYZE",
+        "machine_max_jerk_xy":             { "value": "20" },
+        "machine_max_jerk_z":              { "value": "1" },
+        "machine_max_jerk_e":              { "value": "5" },
 
         "speed_print" :                    { "default_value": 120 },
         "speed_topbottom":                 { "value": "speed_print * 0.90" },
@@ -55,7 +56,8 @@
         "speed_travel_layer_0":            { "value": "speed_travel * 0.70" },
         "speed_z_hop":                     { "value": "machine_max_feedrate_z" },
 
-        "acceleration_enabled":            { "value": "True" },
+        "__accel_comment": "CraftBot doesn't support Marlin's M204 for setting acceleration, it uses M1203/M1204.",
+        "acceleration_enabled":            { "value": "False" },
         "acceleration_travel" :            { "value": "machine_max_acceleration_x" },
         "acceleration_print":              { "value": "machine_max_acceleration_x" },
         "acceleration_wall":               { "value": "acceleration_print * 0.5" },
@@ -66,7 +68,8 @@
         "acceleration_support":            { "value": "acceleration_wall" },
         "acceleration_support_interface":  { "value": "acceleration_wall_0" },
 
-        "jerk_enabled":                    { "value": "True" },
+        "__jerk_comment": "CraftBot doesn't support Marlin's M205 for setting jerk",
+        "jerk_enabled":                    { "value": "False" },
         "jerk_layer_0": 				   { "value": "5" },
         "jerk_prime_tower": 			   { "value": "jerk_print" },
         "jerk_print": 					   { "value": "15" },
@@ -87,7 +90,7 @@
         "travel_avoid_supports":             { "value": "True" },
         "retraction_hop_only_when_collides": { "value": "1" },
 
-        "switch_extruder_retraction_amount": { "value": 1},
+        "switch_extruder_retraction_amount": { "value": "1" },
         "switch_extruder_retraction_speeds": { "default_value": 60 },
 
         "top_bottom_thickness":            { "default_value": 0.8 },
@@ -97,12 +100,13 @@
 
         "infill_sparse_density":           { "default_value": 20 },
         "infill_pattern":                  { "value": "'lines'" },
+        "zig_zaggify_infill":              { "value": "True" },
         "infill_before_walls":             { "default_value": false },
 
         "support_z_distance":              { "value": "layer_height" },
         "support_bottom_distance":         { "value": "layer_height" },
         "support_use_towers":              { "default_value": false },
-        "support_bottom_enable":           { "value": false },
+        "support_bottom_enable":           { "value": "False" },
         "support_wall_count":              { "value": "1" },
 
         "skirt_brim_speed":                { "value": "speed_layer_0" },
@@ -111,7 +115,7 @@
         "brim_width":                      { "value": "3" },
 
         "prime_tower_size":                { "value": "math.sqrt(extruders_enabled_count * prime_tower_min_volume / layer_height / math.pi) * 2"},
-        "prime_tower_brim_enable":         { "value": false },
+        "prime_tower_brim_enable":         { "value": "False" },
         "prime_tower_position_x":          { "value": "prime_tower_size / 2" },
         "prime_tower_position_y":          { "value": "machine_depth / 2 - prime_tower_size - max(extruderValue(adhesion_extruder_nr, 'brim_width') * extruderValue(adhesion_extruder_nr, 'initial_layer_line_width_factor') / 100 if adhesion_type == 'brim' or (prime_tower_brim_enable and adhesion_type != 'raft') else (extruderValue(adhesion_extruder_nr, 'raft_margin') if adhesion_type == 'raft' else (extruderValue(adhesion_extruder_nr, 'skirt_gap') if adhesion_type == 'skirt' else 0)), max(extruderValues('travel_avoid_distance'))) - max(extruderValues('support_offset')) - sum(extruderValues('skirt_brim_line_width')) * extruderValue(adhesion_extruder_nr, 'initial_layer_line_width_factor') / 100 - (resolveOrValue('draft_shield_dist') if resolveOrValue('draft_shield_enabled') else 0) - 1" }
     }
