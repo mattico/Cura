@@ -87,6 +87,13 @@
 
         "retraction_amount" :              { "default_value": 1.0 },
         "retraction_speed" :               { "default_value": 60 },
-        "retraction_hop_after_extruder_switch": { "value": "False" }
+
+        "__switch_extruder_comment": "Firmware handles retraction, prime, park, wipe when switching extruders",
+        "retraction_hop_after_extruder_switch": { "default_value": false },
+        "switch_extruder_retraction_amount": { "default_value": 0 },
+        "switch_extruder_extra_prime_amount": { "default_value": 0 },
+
+        "material_initial_print_temperature": { "value": "material_print_temperature" },
+        "material_final_print_temperature": { "value": "material_print_temperature" }
     }
 }
