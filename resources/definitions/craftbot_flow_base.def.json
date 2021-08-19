@@ -8,9 +8,7 @@
         "visible":                         false,
         "manufacturer":                    "CraftUnique",
         "file_formats":                    "text/x-gcode",
-        "has_machine_quality":             false,
-        "has_materials":                   false,
-        "has_variants":                    false,
+        "supports_usb_connection":         false,
 
         "machine_extruder_trains": {
             "0": "craftbot_flow_base_extruder_0",

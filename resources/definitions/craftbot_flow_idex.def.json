@@ -13,7 +13,7 @@
 
     "overrides": {
         "machine_name":            { "default_value": "CraftBot FLOW IDEX" },
-        "machine_extruder_count":  { "default_value": 2, "maximum_value": "2" },
+        "machine_extruder_count":  { "default_value": 2 },
         "machine_width":           { "default_value": 445 },
         "machine_depth":           { "default_value": 266 },
         "machine_height":          { "default_value": 250 },
