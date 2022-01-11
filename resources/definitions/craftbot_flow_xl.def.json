@@ -1,0 +1,17 @@
+{
+    "version": 2,
+    "name": "CraftBot FLOW XL",
+    "inherits": "craftbot_flow",
+
+    "metadata": {
+        "visible": true,
+        "machine_extruder_trains": {
+            "0": "craftbot_flow_xl_extruder_0"
+        }
+    },
+
+    "overrides": {
+        "machine_name": { "default_value": "CraftBot FLOW XL" },
+        "machine_height": { "default_value": 500 }
+    }
+}

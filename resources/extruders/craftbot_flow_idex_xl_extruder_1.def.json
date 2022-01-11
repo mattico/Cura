@@ -3,7 +3,7 @@
     "name":                 "Extruder 2",
     "inherits":             "fdmextruder",
     "metadata": {
-        "machine":          "craftbot_flow_idex",
+        "machine":          "craftbot_flow_idex_xl",
         "position":         "1"
     },
 
@@ -14,7 +14,7 @@
         "machine_nozzle_offset_x":       { "default_value": 16.0 },
         "machine_nozzle_offset_y":       { "default_value": 16.0 },
         "machine_nozzle_heat_up_speed":  { "default_value": 4.0 },
-        "machine_extruder_start_code":   { "default_value": ";CraftBot FLOW IDEX Extruder 2\n;Put your custom code here"},
-        "machine_extruder_end_code":     { "default_value": ";CraftBot FLOW IDEX Extruder 2\n;Put your custom code here"}
+        "machine_extruder_start_code":   { "default_value": ";CraftBot FLOW IDEX XL Extruder 2\n;Put your custom code here"},
+        "machine_extruder_end_code":     { "default_value": ";CraftBot FLOW IDEX XL Extruder 2\n;Put your custom code here"}
     }
 }

@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "name": "CraftBot FLOW IDEX XL",
+    "inherits": "craftbot_flow_idex",
+
+    "metadata": {
+        "visible": true,
+        "machine_extruder_trains": {
+            "0": "craftbot_flow_idex_xl_extruder_0",
+            "1": "craftbot_flow_idex_xl_extruder_1"
+        }
+    },
+
+    "overrides": {
+        "machine_name": { "default_value": "CraftBot FLOW IDEX XL" },
+        "machine_height": { "default_value": 500 }
+    }
+}
