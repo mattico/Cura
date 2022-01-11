@@ -1,7 +1,7 @@
 {
-    "version":                 2,
-    "name":                    "CraftBot FLOW",
-    "inherits":                "craftbot_flow_base",
+    "version": 2,
+    "name": "CraftBot FLOW",
+    "inherits": "craftbot_flow_base",
 
     "metadata": {
         "visible": true,
@@ -11,11 +11,11 @@
     },
 
     "overrides": {
-        "machine_name":            { "default_value": "CraftBot FLOW" },
-        "machine_extruder_count":  { "default_value": 1 },
-        "machine_width":           { "default_value": 315 },
-        "machine_depth":           { "default_value": 210 },
-        "machine_height":          { "default_value": 250 },
+        "machine_name": { "default_value": "CraftBot FLOW" },
+        "machine_extruder_count": { "default_value": 1 },
+        "machine_width": { "default_value": 315 },
+        "machine_depth": { "default_value": 210 },
+        "machine_height": { "default_value": 250 },
         "machine_use_extruder_offset_to_offset_coords": { "default_value": true }
     }
 }

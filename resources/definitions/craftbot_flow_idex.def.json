@@ -1,10 +1,10 @@
 {
-    "version":                 2,
-    "name":                    "CraftBot FLOW IDEX",
-    "inherits":                "craftbot_flow_base",
+    "version": 2,
+    "name": "CraftBot FLOW IDEX",
+    "inherits": "craftbot_flow_base",
 
     "metadata": {
-        "visible":                 true,
+        "visible": true,
         "machine_extruder_trains": {
             "0": "craftbot_flow_idex_extruder_0",
             "1": "craftbot_flow_idex_extruder_1"
@@ -12,11 +12,11 @@
     },
 
     "overrides": {
-        "machine_name":            { "default_value": "CraftBot FLOW IDEX" },
-        "machine_extruder_count":  { "default_value": 2 },
-        "machine_width":           { "default_value": 445 },
-        "machine_depth":           { "default_value": 266 },
-        "machine_height":          { "default_value": 250 },
+        "machine_name": { "default_value": "CraftBot FLOW IDEX" },
+        "machine_extruder_count": { "default_value": 2 },
+        "machine_width": { "default_value": 445 },
+        "machine_depth": { "default_value": 266 },
+        "machine_height": { "default_value": 250 },
         "machine_use_extruder_offset_to_offset_coords": { "default_value": true }
     }
 }
