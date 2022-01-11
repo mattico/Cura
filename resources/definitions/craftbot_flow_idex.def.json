@@ -16,7 +16,6 @@
         "machine_extruder_count": { "default_value": 2 },
         "machine_width": { "default_value": 445 },
         "machine_depth": { "default_value": 266 },
-        "machine_height": { "default_value": 250 },
-        "machine_use_extruder_offset_to_offset_coords": { "default_value": true }
+        "machine_height": { "default_value": 250 }
     }
 }
